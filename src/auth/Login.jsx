@@ -48,8 +48,12 @@ export default function Login() {
         return 'Please enter a valid email address.'
       case 'auth/popup-closed-by-user':
         return 'Sign-in popup was closed. Please try again.'
+      case 'auth/popup-blocked':
+        return 'Popup was blocked by your browser. Please allow popups for this site.'
+      case 'auth/unauthorized-domain':
+        return 'This domain is not authorized for Google sign-in. Add it to Firebase Console → Authentication → Settings → Authorized domains.'
       default:
-        return 'Something went wrong. Please try again.'
+        return `Sign-in failed (${code}). Please try again.`
     }
   }
 
