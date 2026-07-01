@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { processMessage } from '../services/chatService'
+import { logOut } from '../auth/authService'
 import MessageContent from './MessageContent'
 import SuggestedReplies from './SuggestedReplies'
 import QuestionDictionary from './QuestionDictionary'
@@ -28,7 +29,7 @@ const INITIAL_SUGGESTIONS = [
   'Tell me about scholarships',
 ]
 
-export default function ChatCard() {
+export default function ChatCard({ user }) {
   const [messages, setMessages]       = useState(INITIAL_MESSAGES)
   const [input, setInput]             = useState('')
   const [isTyping, setIsTyping]       = useState(false)
@@ -93,12 +94,21 @@ export default function ChatCard() {
         <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-[11px] font-bold flex-shrink-0">
           RSU
         </div>
-        <div className="flex flex-col gap-0.5">
+        <div className="flex flex-col gap-0.5 flex-1">
           <span className="text-[15px] font-semibold">{BOT_NAME}</span>
           <span className="text-xs opacity-80 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
             {isTyping ? 'Typing...' : 'Online'}
           </span>
+        </div>
+        <div className="flex flex-col items-end gap-0.5">
+          <span className="text-[11px] opacity-75 truncate max-w-[120px]">{user?.displayName || user?.email}</span>
+          <button
+            onClick={logOut}
+            className="text-[11px] opacity-70 hover:opacity-100 underline transition-opacity"
+          >
+            Sign out
+          </button>
         </div>
       </div>
 
